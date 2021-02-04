@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
@@ -22,12 +21,46 @@ public class Main {
         driver.get("https://orangehrm-demo-6x.orangehrmlive.com/auth/login");
         driver.findElement(By.xpath("//input[@type='submit']")).click();
         // Step 2 //
+
         driver.findElement(By.xpath("//span[text()='Admin']")).click();
         driver.findElement(By.xpath("//a[@class='collapsible-header waves-effect waves-orange']/span[text()='Announcements']")).click();
         driver.findElement(By.xpath("//a[@id='menu_news_viewNewsList']/span[text()='News']")).click();
 
         driver.switchTo().frame("noncoreIframe");
         driver.findElement(By.id("list_item_add")).click();
+        // Step 3 //
+        Map<String, List<String>> mapNews = new LinkedHashMap<>();
+
+        //header, publish date, role, is file attacked
+        for (WebElement parent : driver.findElements(By.className("newsList"))) {
+            parent.click();
+            String header = parent.findElement(By.id("header")).getText();
+            String publishedDate = parent.findElement(By.className("publish-date")).getText().replace("Published on ", "");
+            String role = "N/A";
+            String fileAttached = "No";
+
+            try {
+                driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+                String temp = parent.findElement(By.xpath("//*[contains(text(), ' Team')]")).getText();
+                driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            } catch (Exception e) {
+            }
+
+            try {
+                driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+                parent.findElement(By.tagName("img")).getText();
+                fileAttached = "Yes";
+                driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            } catch (Exception e) {
+            }
+
+            mapNews.put(header, Arrays.asList(publishedDate, role, fileAttached));
+            parent.click();
+        }
+
+        for (Map.Entry<String, List<String>> map : mapNews.entrySet()) {
+            System.out.println(map.getKey() + " | " + map.getValue());
+        }
         //---Step 9-Verify news is displayed--
         String header = "Julia Test-" + new Random().nextInt(1000);
         driver.findElement(By.name("news[topic]")).sendKeys(header);
