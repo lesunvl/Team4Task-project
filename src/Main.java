@@ -28,9 +28,6 @@ public class Main {
         driver.findElement(By.xpath("//a[@class='collapsible-header waves-effect waves-orange']/span[text()='Announcements']")).click();
         driver.findElement(By.xpath("//a[@id='menu_news_viewNewsList']/span[text()='News']")).click();
 
-        driver.switchTo().frame("noncoreIframe");
-        driver.findElement(By.id("list_item_add")).click();
-
         // Step 3 //
 
         Map<String, List<String>> mapNews = new LinkedHashMap<>();
