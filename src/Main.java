@@ -22,6 +22,35 @@ public class Main {
 //        Alert alert = driver.switchTo().alert();
 //        alert.accept();
 
+        // step 4 A // Add News Item
+
+        driver.switchTo().frame("noncoreIframe");
+        driver.findElement(By.name("news[topic]")).sendKeys("Congrats Team4");
+
+        // Step 4 B // Switch to description frame
+
+        driver.switchTo().frame("news_description_ifr");
+        driver.findElement(By.id("tinymce")).sendKeys("Promotion was awarded to Team4");
+
+        // Step 5 // click NEXT
+
+
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame("noncoreIframe");
+        driver.findElement(By.xpath("//button[@btn-type='new']")).click();
+
+
+        // Step 6 // Check Publish to "All user roles" option
+
+        Thread.sleep(3000);
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame("noncoreIframe");
+        driver.findElement(By.xpath("//label[@for='news_publish_all']")).click();
+
+        // Step 7 // Publish
+
+        driver.findElement(By.xpath("//button[@class='modal-action waves-effect action-btn btn right cancel-btn publish-btn']")).click();
+
 
     }
 }
