@@ -163,7 +163,6 @@ public class Main {
         driver.switchTo().frame("noncoreIframe");
         driver.findElement(By.xpath("//label[@for='checkbox_ohrmList_chkSelectRecord_56']")).click();
         driver.findElement(By.xpath("//i[@class='material-icons icons-color handCurser orange-text']")).click();
-        Thread.sleep(2000);
         driver.findElement(By.xpath("//a[@id='newsDelete']")).click();
         driver.findElement(By.xpath("(//a[@class='modal-action modal-close waves-effect btn right action-btn'])[2]")).click();
 
