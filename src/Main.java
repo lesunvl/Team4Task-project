@@ -84,6 +84,29 @@ public class Main {
             }
         }
 
+//step 10 (starting from logout to make code smaller)
+        driver.findElement(By.id("user-dropdown")).click();
+        driver.findElement(By.id("logoutLink")).click();
+        //step 10
+        driver.findElement(By.xpath("//button[@class='btn btn-primary dropdown-toggle']")).click();
+        List<WebElement> login = driver.findElements(By.xpath("//a[@class='login-as']"));
+        login.get(3).click();
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        //step 11
+        String topic = driver.findElement(By.xpath("//div[@class='news-header-text']")).getText();
+        if (topic.equals(header)) {
+            Assert.assertTrue(true, "header is equal");
+        }
+        //step 12
+        driver.findElement(By.xpath("//div[@class='news-header-text']")).click();
+        String topic1 = driver.findElement(By.id("header")).getText();
+        if (topic1.equals(header)) {
+            Assert.assertTrue(true, "header is equal");
+        }
+        String description = driver.findElement(By.xpath("//div[@ng-bind-html='vm.trustAsHtmlDescription(news.description)']")).getText();
+        if (description.equals("Promotion was awarded to Team4")) {
+            Assert.assertTrue(true, "header is equal");
+        }
         driver.quit();
     }
 }
