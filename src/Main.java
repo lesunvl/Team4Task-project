@@ -150,14 +150,13 @@ public class Main {
 
         // Step 13 // Login as Admin
 
-        driver.get("https://orangehrm-demo-6x.orangehrmlive.com/auth/login");
-        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
 
         // Step 14 // Open Admin -> Announcements -> News
 
-        driver.findElement(By.xpath("//span[text()='Admin']")).click();
-        driver.findElement(By.xpath("//a[@class='collapsible-header waves-effect waves-orange']/span[text()='Announcements']")).click();
-        driver.findElement(By.xpath("//a[@id='menu_news_viewNewsList']/span[text()='News']")).click();
+        driver.findElement(By.id("menu_admin_viewAdminModule")).click();
+        driver.findElement(By.id("menu_news_Announcements")).click();
+        driver.findElement(By.id("menu_news_viewNewsList")).click();
 
         // Step 15 // Delete news
 
