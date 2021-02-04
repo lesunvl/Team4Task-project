@@ -1,9 +1,9 @@
+
 public class Main {
     public static void main(String[] args) {
+        // Step 4 //
 
-        // Step 1 //  Login as administrator
 
-        // Step 2 //  test
 
     }
 }
