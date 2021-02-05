@@ -108,7 +108,9 @@ public class Main {
         driver.findElement(By.className("publish-btn")).click();
         List<WebElement> newRow = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
 
-        for (int i = 0; i < newRow.size(); i++) {
+        for (int i = 0; i < newRow.size(); i++)
+
+    {
         if (newRow.get(i).getText().equals(header)) {
             Assert.assertTrue(true, "header is found");
             break;
@@ -163,6 +165,24 @@ public class Main {
         driver.findElement(By.xpath("//a[@id='newsDelete']")).click();
         driver.findElement(By.xpath("(//a[@class='modal-action modal-close waves-effect btn right action-btn'])[2]")).click();
 
-        driver.quit();
+        // Step 16
+        String header = "Julia Test-" + new Random().nextInt(1000);
+        driver.findElement(By.name("news[topic]")).sendKeys(header);
+        driver.switchTo().frame("news_description_ifr");
+        driver.findElement(By.id("tinymce")).sendKeys("Promotion was awarded to Team4");
+        driver.switchTo().parentFrame();
+
+        driver.findElement(By.id("nextBtn")).click();
+        driver.findElement(By.cssSelector("[for='news_publish_all']")).click();
+        driver.findElement(By.className("publish-btn")).click();
+        List<WebElement> newRow = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
+
+        for (int i = 0; i < newRow.size(); i++) {
+            if (newRow.get(i).getText().equals(header)) {
+                Assert.assertTrue(true, "header is found");
+                break;
+            }
+            driver.quit();
+
+        }
     }
-}
