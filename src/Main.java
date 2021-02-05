@@ -1,11 +1,13 @@
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 public class Main {
     //nothing to push. Just testing
     public static void main(String[] args) throws InterruptedException {
@@ -80,63 +82,67 @@ public class Main {
         int sizeOfRow = newRow.size();
         for (int i = 0; i < newRow.size(); i++) {
             if (newRow.get(i).getText().equals(header)) {
-                Assert.assertTrue(true, "header is found");
+                Assert.assertTrue(true, "news is found");
                 break;
             }
-            //step 10 (starting from logout to make code smaller)
-            driver.findElement(By.id("user-dropdown")).click();
-            driver.findElement(By.id("logoutLink")).click();
-            //step 10
-            driver.findElement(By.xpath("//button[@class='btn btn-primary dropdown-toggle']")).click();
-            List<WebElement> login = driver.findElements(By.xpath("//a[@class='login-as']"));
-            login.get(3).click();
-            driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
-            //step 11
-            String topic = driver.findElement(By.xpath("//div[@class='news-header-text']")).getText();
-            if (topic.equals(header)) {
-                Assert.assertTrue(true, "header is equal");
+            if (i == newRow.size() - 1) {
+                Assert.assertTrue(false, "news not found");
             }
-            //step 12
-            driver.findElement(By.xpath("//div[@class='news-header-text']")).click();
-            String topic1 = driver.findElement(By.id("header")).getText();
-            if (topic1.equals(header)) {
-                Assert.assertTrue(true, "header is equal");
-            }
-            String description = driver.findElement(By.xpath("//div[@ng-bind-html='vm.trustAsHtmlDescription(news.description)']")).getText();
-            if (description.equals("Promotion was awarded to Team4")) {
-                Assert.assertTrue(true, "header is equal");
-            }
-            // Step 13 // Login as Admin
-            driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
-            // Step 14 // Open Admin -> Announcements -> News
-            driver.findElement(By.id("menu_admin_viewAdminModule")).click();
-            driver.findElement(By.id("menu_news_Announcements")).click();
-            driver.findElement(By.id("menu_news_viewNewsList")).click();
-            // Step 15 // Delete news
-            driver.switchTo().frame("noncoreIframe");
-            driver.findElement(By.xpath("//label[@for='checkbox_ohrmList_chkSelectRecord_56']")).click();
-            driver.findElement(By.xpath("//i[@class='material-icons icons-color handCurser orange-text']")).click();
-            driver.findElement(By.xpath("//a[@id='newsDelete']")).click();
-            driver.findElement(By.xpath("(//a[@class='modal-action modal-close waves-effect btn right action-btn'])[2]")).click();
-            //step 16
-            driver.switchTo().parentFrame();
-            for (int i = 0; i < newRow.size(); i++) {
-                if (newRow.get(i).getText().equals(header)) {
-                    Assert.assertTrue(true, "header not deleted");
-                    break;
-                }
-                if (i == newRow.size() - 1) {
-                    Assert.assertTrue(false, "header deleted");
-                }
-            }
-// step 17
-            List<WebElement> rowDeleted = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
-            int deletedRowSize = rowDeleted.size();
-            if (deletedRowSize + 1 == sizeOfRow){
-                System.out.println("Row size one less! ");
-            }
-            driver.quit();
-
         }
+        //step 10 (starting from logout to make code smaller)
+        driver.findElement(By.id("user-dropdown")).click();
+        driver.findElement(By.id("logoutLink")).click();
+        //step 10
+        driver.findElement(By.xpath("//button[@class='btn btn-primary dropdown-toggle']")).click();
+        List<WebElement> login = driver.findElements(By.xpath("//a[@class='login-as']"));
+        login.get(3).click();
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        //step 11
+        String topic = driver.findElement(By.xpath("//div[@class='news-header-text']")).getText();
+        if (topic.equals(header)) {
+            Assert.assertTrue(true, "header is equal");
+        }
+        //step 12
+        driver.findElement(By.xpath("//div[@class='news-header-text']")).click();
+        String topic1 = driver.findElement(By.id("header")).getText();
+        if (topic1.equals(header)) {
+            Assert.assertTrue(true, "header is equal");
+        }
+        String description = driver.findElement(By.xpath("//div[@ng-bind-html='vm.trustAsHtmlDescription(news.description)']")).getText();
+        if (description.equals("Promotion was awarded to Team4")) {
+            Assert.assertTrue(true, "header is equal");
+        }
+        // Step 13 // Login as Admin
+        driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
+        // Step 14 // Open Admin -> Announcements -> News
+        driver.findElement(By.id("menu_admin_viewAdminModule")).click();
+        driver.findElement(By.id("menu_news_Announcements")).click();
+        driver.findElement(By.id("menu_news_viewNewsList")).click();
+        // Step 15 // Delete news
+        driver.switchTo().frame("noncoreIframe");
+        driver.findElement(By.xpath("//label[@for='checkbox_ohrmList_chkSelectRecord_56']")).click();
+        driver.findElement(By.xpath("//i[@class='material-icons icons-color handCurser orange-text']")).click();
+        driver.findElement(By.xpath("//a[@id='newsDelete']")).click();
+        driver.findElement(By.xpath("(//a[@class='modal-action modal-close waves-effect btn right action-btn'])[2]")).click();
+        //step 16
+        driver.switchTo().parentFrame();
+        for (int i = 0; i < newRow.size(); i++) {
+            if (newRow.get(i).getText().equals(header)) {
+                Assert.assertTrue(false, "header not deleted");
+                break;
+            }
+            if (i == newRow.size() - 1) {
+                Assert.assertTrue(true, "header deleted");
+            }
+        }
+        // step 17
+        List<WebElement> rowDeleted = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
+        int deletedRowSize = rowDeleted.size();
+        if (deletedRowSize + 1 == sizeOfRow) {
+            System.out.println("Row size one less! ");
+        }
+        driver.close();
+        driver.quit();
+
     }
 }
