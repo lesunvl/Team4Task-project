@@ -90,11 +90,6 @@ public class Main {
 
         driver.findElement(By.xpath("//button[@class='modal-action waves-effect action-btn btn right cancel-btn publish-btn']")).click();
 
-            if (i == newRow.size() - 1) {
-                Assert.assertTrue(false, "header is not found");
-            }
-        }
-
         //---Step 9-Verify news is displayed--
 
         String header = "Julia Test-" + new Random().nextInt(1000);
