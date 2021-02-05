@@ -83,7 +83,21 @@ public class Main {
                 Assert.assertTrue(false, "header is not found");
             }
         }
+//step 16
 
+        driver.switchTo().parentFrame();
+
+        for (int i = 0; i < newRow.size(); i++) {
+            if (newRow.get(i).getText().equals(header)) {
+                Assert.assertTrue(true, "header not deleted");
+                break;
+            }
+
+            if (i == newRow.size() - 1) {
+                Assert.assertTrue(false, "header deleted");
+            }
+        }
         driver.quit();
+
     }
 }
