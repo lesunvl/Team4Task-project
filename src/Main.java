@@ -103,81 +103,79 @@ public class Main {
         driver.findElement(By.className("publish-btn")).click();
         List<WebElement> newRow = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
 
-        for (int i = 0; i < newRow.size(); i++)
-
-    {
-        if (newRow.get(i).getText().equals(header)) {
-            Assert.assertTrue(true, "header is found");
-            break;
-        }
-
-        //step 10 (starting from logout to make code smaller)
-
-        driver.findElement(By.id("user-dropdown")).click();
-        driver.findElement(By.id("logoutLink")).click();
-
-        //step 10
-
-        driver.findElement(By.xpath("//button[@class='btn btn-primary dropdown-toggle']")).click();
-        List<WebElement> login = driver.findElements(By.xpath("//a[@class='login-as']"));
-        login.get(3).click();
-        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
-
-        //step 11
-
-        String topic = driver.findElement(By.xpath("//div[@class='news-header-text']")).getText();
-        if (topic.equals(header)) {
-            Assert.assertTrue(true, "header is equal");
-        }
-
-        //step 12
-
-        driver.findElement(By.xpath("//div[@class='news-header-text']")).click();
-        String topic1 = driver.findElement(By.id("header")).getText();
-        if (topic1.equals(header)) {
-            Assert.assertTrue(true, "header is equal");
-        }
-        String description = driver.findElement(By.xpath("//div[@ng-bind-html='vm.trustAsHtmlDescription(news.description)']")).getText();
-        if (description.equals("Promotion was awarded to Team4")) {
-            Assert.assertTrue(true, "header is equal");
-        }
-
-        // Step 13 // Login as Admin
-
-        driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
-
-        // Step 14 // Open Admin -> Announcements -> News
-
-        driver.findElement(By.id("menu_admin_viewAdminModule")).click();
-        driver.findElement(By.id("menu_news_Announcements")).click();
-        driver.findElement(By.id("menu_news_viewNewsList")).click();
-
-        // Step 15 // Delete news
-
-        driver.switchTo().frame("noncoreIframe");
-        driver.findElement(By.xpath("//label[@for='checkbox_ohrmList_chkSelectRecord_56']")).click();
-        driver.findElement(By.xpath("//i[@class='material-icons icons-color handCurser orange-text']")).click();
-        driver.findElement(By.xpath("//a[@id='newsDelete']")).click();
-        driver.findElement(By.xpath("(//a[@class='modal-action modal-close waves-effect btn right action-btn'])[2]")).click();
-
-        // Step 16
-        String header = "Julia Test-" + new Random().nextInt(1000);
-        driver.findElement(By.name("news[topic]")).sendKeys(header);
-        driver.switchTo().frame("news_description_ifr");
-        driver.findElement(By.id("tinymce")).sendKeys("Promotion was awarded to Team4");
-        driver.switchTo().parentFrame();
-
-        driver.findElement(By.id("nextBtn")).click();
-        driver.findElement(By.cssSelector("[for='news_publish_all']")).click();
-        driver.findElement(By.className("publish-btn")).click();
-        List<WebElement> newRow = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
-
         for (int i = 0; i < newRow.size(); i++) {
             if (newRow.get(i).getText().equals(header)) {
                 Assert.assertTrue(true, "header is found");
                 break;
             }
-            driver.quit();
 
+            //step 10 (starting from logout to make code smaller)
+
+            driver.findElement(By.id("user-dropdown")).click();
+            driver.findElement(By.id("logoutLink")).click();
+
+            //step 10
+
+            driver.findElement(By.xpath("//button[@class='btn btn-primary dropdown-toggle']")).click();
+            List<WebElement> login = driver.findElements(By.xpath("//a[@class='login-as']"));
+            login.get(3).click();
+            driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+
+            //step 11
+
+            String topic = driver.findElement(By.xpath("//div[@class='news-header-text']")).getText();
+            if (topic.equals(header)) {
+                Assert.assertTrue(true, "header is equal");
+            }
+
+            //step 12
+
+            driver.findElement(By.xpath("//div[@class='news-header-text']")).click();
+            String topic1 = driver.findElement(By.id("header")).getText();
+            if (topic1.equals(header)) {
+                Assert.assertTrue(true, "header is equal");
+            }
+            String description = driver.findElement(By.xpath("//div[@ng-bind-html='vm.trustAsHtmlDescription(news.description)']")).getText();
+            if (description.equals("Promotion was awarded to Team4")) {
+                Assert.assertTrue(true, "header is equal");
+            }
+
+            // Step 13 // Login as Admin
+
+            driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
+
+            // Step 14 // Open Admin -> Announcements -> News
+
+            driver.findElement(By.id("menu_admin_viewAdminModule")).click();
+            driver.findElement(By.id("menu_news_Announcements")).click();
+            driver.findElement(By.id("menu_news_viewNewsList")).click();
+
+            // Step 15 // Delete news
+
+            driver.switchTo().frame("noncoreIframe");
+            driver.findElement(By.xpath("//label[@for='checkbox_ohrmList_chkSelectRecord_56']")).click();
+            driver.findElement(By.xpath("//i[@class='material-icons icons-color handCurser orange-text']")).click();
+            driver.findElement(By.xpath("//a[@id='newsDelete']")).click();
+            driver.findElement(By.xpath("(//a[@class='modal-action modal-close waves-effect btn right action-btn'])[2]")).click();
+
+            // Step 16 ===
+            String header = "Julia Test-" + new Random().nextInt(1000);
+            driver.findElement(By.name("news[topic]")).sendKeys(header);
+            driver.switchTo().frame("news_description_ifr");
+            driver.findElement(By.id("tinymce")).sendKeys("Promotion was awarded to Team4");
+            driver.switchTo().parentFrame();
+
+            driver.findElement(By.id("nextBtn")).click();
+            driver.findElement(By.cssSelector("[for='news_publish_all']")).click();
+            driver.findElement(By.className("publish-btn")).click();
+            List<WebElement> newRow = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
+
+            for (int i = 0; i < newRow.size(); i++) {
+                if (newRow.get(i).getText().equals(header)) {
+                    Assert.assertTrue(true, "header is found");
+                    break;
+                }
+                driver.quit();
+
+            }
         }
-    }
