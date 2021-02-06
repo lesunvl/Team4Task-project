@@ -99,7 +99,8 @@ public class OrangeProject {
 
         //Step 8
 
-        if(numOfNewsBefore < numOfNewsAfter){
+        String header = "Julia Test-" + new Random().nextInt(1000);
+        if (numOfNewsBefore < numOfNewsAfter) {
             Assert.assertTrue(true, "the count of news has increased");
         }
         for (int i = 0; i < newRow.size(); i++) {
@@ -114,7 +115,7 @@ public class OrangeProject {
 
         //---Step 9-Verify news is displayed--
 
-        String header = "Julia Test-" + new Random().nextInt(1000);
+
         driver.findElement(By.name("news[topic]")).sendKeys(header);
         driver.switchTo().frame("news_description_ifr");
         driver.findElement(By.id("tinymce")).sendKeys("Promotion was awarded to Team4");
@@ -123,14 +124,14 @@ public class OrangeProject {
         driver.findElement(By.id("nextBtn")).click();
         driver.findElement(By.cssSelector("[for='news_publish_all']")).click();
         driver.findElement(By.className("publish-btn")).click();
-        List<WebElement> newRow = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
+
 
         for (int i = 0; i < newRow.size(); i++) {
             if (newRow.get(i).getText().equals(header)) {
                 Assert.assertTrue(true, "header is found");
                 break;
             }
-
+        }
             //step 10 (starting from logout to make code smaller)
 
             driver.findElement(By.id("user-dropdown")).click();
@@ -181,37 +182,10 @@ public class OrangeProject {
             driver.findElement(By.xpath("//a[@id='newsDelete']")).click();
             driver.findElement(By.xpath("(//a[@class='modal-action modal-close waves-effect btn right action-btn'])[2]")).click();
 
-            // Step 16 ===
-            String header = "Julia Test-" + new Random().nextInt(1000);
-            driver.findElement(By.name("news[topic]")).sendKeys(header);
-            driver.switchTo().frame("news_description_ifr");
-            driver.findElement(By.id("tinymce")).sendKeys("Promotion was awarded to Team4");
+
+            //step 16//
+
             driver.switchTo().parentFrame();
-
-            driver.findElement(By.id("nextBtn")).click();
-            driver.findElement(By.cssSelector("[for='news_publish_all']")).click();
-            driver.findElement(By.className("publish-btn")).click();
-            List<WebElement> newRow = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
-
-            for (int i = 0; i < newRow.size(); i++) {
-                if (newRow.get(i).getText().equals(header)) {
-                    Assert.assertTrue(true, "header is found");
-                    break;
-                }
-                driver.quit();
-
-            }
-        }
-
-        driver.switchTo().frame("noncoreIframe");
-        driver.findElement(By.xpath("//label[@for='checkbox_ohrmList_chkSelectRecord_56']")).click();
-        driver.findElement(By.xpath("//i[@class='material-icons icons-color handCurser orange-text']")).click();
-        driver.findElement(By.xpath("//a[@id='newsDelete']")).click();
-        driver.findElement(By.xpath("(//a[@class='modal-action modal-close waves-effect btn right action-btn'])[2]")).click();
-
-        //step 16//
-
-        driver.switchTo().parentFrame();
             for (int i = 0; i < newRow.size(); i++) {
                 if (newRow.get(i).getText().equals(header)) {
                     Assert.assertTrue(false, "header not deleted");
@@ -231,7 +205,8 @@ public class OrangeProject {
                 System.out.println("Row size one less! ");
             }
 
-        driver.quit();
+            driver.quit();
+        }
     }
-}
+
 
