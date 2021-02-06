@@ -90,6 +90,27 @@ public class Main {
 
         driver.findElement(By.xpath("//button[@class='modal-action waves-effect action-btn btn right cancel-btn publish-btn']")).click();
 
+        //Part of Step 8
+        List<WebElement> newRow = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
+
+        int sizeOfRow = newRow.size();
+        int numOfNewsAfter = newRow.size();
+
+        //Step 8
+
+        if(numOfNewsBefore < numOfNewsAfter){
+            Assert.assertTrue(true, "the count of news has increased");
+        }
+        for (int i = 0; i < newRow.size(); i++) {
+            if (newRow.get(i).getText().equals(header)) {
+                Assert.assertTrue(true, "news is found");
+                break;
+            }
+            if (i == newRow.size() - 1) {
+                Assert.assertTrue(false, "news not found");
+            }
+        }
+
         //---Step 9-Verify news is displayed--
 
         String header = "Julia Test-" + new Random().nextInt(1000);
