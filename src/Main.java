@@ -158,6 +158,28 @@ public class Main {
         driver.findElement(By.xpath("//a[@id='newsDelete']")).click();
         driver.findElement(By.xpath("(//a[@class='modal-action modal-close waves-effect btn right action-btn'])[2]")).click();
 
+        //step 16//
+
+        driver.switchTo().parentFrame();
+            for (int i = 0; i < newRow.size(); i++) {
+                if (newRow.get(i).getText().equals(header)) {
+                    Assert.assertTrue(false, "header not deleted");
+                    break;
+                }
+
+                if (i == newRow.size() - 1) {
+                    Assert.assertTrue(true, "header deleted");
+                }
+            }
+
+            // step 17 //
+
+            List<WebElement> rowDeleted = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
+            int deletedRowSize = rowDeleted.size();
+            if (deletedRowSize + 1 == sizeOfRow) {
+                System.out.println("Row size one less! ");
+            }
+
         driver.quit();
     }
 }
