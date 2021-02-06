@@ -8,10 +8,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Main {
+public class OrangeProject {
 
     //nothing to push. Just testing
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         // Step 1 //  Login as administrator
 
@@ -66,6 +66,7 @@ public class Main {
         // step 4 A // Add News Item
 
         driver.switchTo().frame("noncoreIframe");
+        driver.findElement(By.xpath("//i[@class='large material-icons']")).click();
         driver.findElement(By.name("news[topic]")).sendKeys("Congrats Team4");
 
         // Step 4 B // Switch to description frame
@@ -89,6 +90,27 @@ public class Main {
         // Step 7 // Publish
 
         driver.findElement(By.xpath("//button[@class='modal-action waves-effect action-btn btn right cancel-btn publish-btn']")).click();
+
+        //Part of Step 8
+        List<WebElement> newRow = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
+
+        int sizeOfRow = newRow.size();
+        int numOfNewsAfter = newRow.size();
+
+        //Step 8
+
+        if(numOfNewsBefore < numOfNewsAfter){
+            Assert.assertTrue(true, "the count of news has increased");
+        }
+        for (int i = 0; i < newRow.size(); i++) {
+            if (newRow.get(i).getText().equals(header)) {
+                Assert.assertTrue(true, "news is found");
+                break;
+            }
+            if (i == newRow.size() - 1) {
+                Assert.assertTrue(false, "news not found");
+            }
+        }
 
         //---Step 9-Verify news is displayed--
 
@@ -152,6 +174,7 @@ public class Main {
 
             // Step 15 // Delete news
 
+
             driver.switchTo().frame("noncoreIframe");
             driver.findElement(By.xpath("//label[@for='checkbox_ohrmList_chkSelectRecord_56']")).click();
             driver.findElement(By.xpath("//i[@class='material-icons icons-color handCurser orange-text']")).click();
@@ -179,3 +202,36 @@ public class Main {
 
             }
         }
+
+        driver.switchTo().frame("noncoreIframe");
+        driver.findElement(By.xpath("//label[@for='checkbox_ohrmList_chkSelectRecord_56']")).click();
+        driver.findElement(By.xpath("//i[@class='material-icons icons-color handCurser orange-text']")).click();
+        driver.findElement(By.xpath("//a[@id='newsDelete']")).click();
+        driver.findElement(By.xpath("(//a[@class='modal-action modal-close waves-effect btn right action-btn'])[2]")).click();
+
+        //step 16//
+
+        driver.switchTo().parentFrame();
+            for (int i = 0; i < newRow.size(); i++) {
+                if (newRow.get(i).getText().equals(header)) {
+                    Assert.assertTrue(false, "header not deleted");
+                    break;
+                }
+
+                if (i == newRow.size() - 1) {
+                    Assert.assertTrue(true, "header deleted");
+                }
+            }
+
+            // step 17 //
+
+            List<WebElement> rowDeleted = driver.findElements(By.xpath("//tr[@class='dataRaw']/td[2]"));
+            int deletedRowSize = rowDeleted.size();
+            if (deletedRowSize + 1 == sizeOfRow) {
+                System.out.println("Row size one less! ");
+            }
+
+        driver.quit();
+    }
+}
+
