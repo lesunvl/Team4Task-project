@@ -66,6 +66,7 @@ public class OrangeProject {
         // step 4 A // Add News Item
 
         driver.switchTo().frame("noncoreIframe");
+        driver.findElement(By.xpath("//i[@class='large material-icons']")).click();
         driver.findElement(By.name("news[topic]")).sendKeys("Congrats Team4");
 
         // Step 4 B // Switch to description frame
