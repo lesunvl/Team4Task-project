@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Main {
+public class OrangeProject {
 
     //nothing to push. Just testing
     public static void main(String[] args) {
